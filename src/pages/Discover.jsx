@@ -1,7 +1,10 @@
 import { Error, Loader, SongCard } from "../components"; 
 import { genres } from '../assets/constants'
+import { useGetTopChartsQuery } from '../redux/services/shazamCore'
 const Discover = () => {
-  console.log(genres)
+  
+  const {data, ifFatching, errro} = useGetTopChartsQuery()
+  
   return (
    <div className="flex flex-col"> 
     <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
@@ -16,9 +19,9 @@ const Discover = () => {
       </select>
     </div>
     <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-      {genres.map((song,index) => {
+      {data?.map((song,index) => {
         return <SongCard 
-          key={song.value}
+          key={index}
           song={song}
           i={index}
         />

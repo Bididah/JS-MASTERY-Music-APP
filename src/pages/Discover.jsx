@@ -1,9 +1,13 @@
 import { Error, Loader, SongCard } from "../components"; 
 import { genres } from '../assets/constants'
 import { useGetTopChartsQuery } from '../redux/services/shazamCore'
+import { useSelector, useDispatch  } from "react-redux";
+
+
 const Discover = () => {
-  
-  const {data, ifFatching, errro} = useGetTopChartsQuery()
+  const dispatch = useDispatch()
+const {isPlaying, activeSong} = useSelector((state) => state.player)
+  const {data, isFatching, errro} = useGetTopChartsQuery()
   
   return (
    <div className="flex flex-col"> 
@@ -23,7 +27,10 @@ const Discover = () => {
         return <SongCard 
           key={index}
           song={song}
+          isPlaying = {isPlaying}
+          activeSong = {activeSong}
           i={index}
+          data = {data}
         />
       })}
     </div>

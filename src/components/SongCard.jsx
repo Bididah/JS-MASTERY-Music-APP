@@ -1,15 +1,19 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux"; 
-
 import PlayPause from "./PlayPause";
 import { playPause, setActiveSong } from "../redux/features/playerSlice";
-import { isPlain } from "@reduxjs/toolkit";
 
-const SongCard = ({song,isPlaying,activeSong ,i}) => {
+
+const SongCard = ({song, isPlaying, activeSong, i, data}) => {
   
-
-  const handlePauseClick = () => {}
-  const handlePlayClick = () => {}
+  const dispatch = useDispatch() 
+  const handlePauseClick = () => {
+    dispatch(playPause(false))
+  }
+  const handlePlayClick = () => {
+    dispatch(setActiveSong({song, data, i}))
+    dispatch(playPause(true))
+  }
 
   return (
   <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slidup rounded-lg cursor-pointer">
